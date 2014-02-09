@@ -17,6 +17,11 @@ void Backlight::set(int level)
   EEPROM.write(eeprom, level);
 }
 
+void Backlight::setLast()
+{
+  this.set(EEPROM.read(eeprom));
+}
+
 int Backlight::get()
 {
   return current;

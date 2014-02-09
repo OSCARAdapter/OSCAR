@@ -6,6 +6,7 @@ class Backlight
   public:
     void init(int pin, int eeprom = 0);
     void set(int level);
+    void setLast();
     int get();
 
     void up();

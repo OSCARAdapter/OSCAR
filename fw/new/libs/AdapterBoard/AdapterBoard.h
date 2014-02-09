@@ -14,7 +14,7 @@ void AdapterBoard::init()
 
   //Setup backlight, restore value
   backlight.init(BACKLIGHT_PIN);
-  backlight.set(backlight.get());
+  backlight.setLast();
 }
 
 void AdapterBoard::poll()
