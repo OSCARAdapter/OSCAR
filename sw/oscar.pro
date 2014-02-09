@@ -8,3 +8,6 @@ UI_DIR      = build
 DESTDIR     = bin
 
 QT += widgets
+win32 {
+QT += winextras
+}
