@@ -4,7 +4,7 @@
 class Backlight
 {
   public:
-    void init(int pin, int eeprom = 0);
+    void init(int pwm_pin, int en_pin, int eeprom = 0);
     void set(int level);
     void setLast();
     int get();
@@ -12,10 +12,14 @@ class Backlight
     void up();
     void down();
 
+    void on();
+    void off();
+
   private:
     int findNearestStep(int level);
 
-    int pin;
+    int pwm_pin;
+    int en_pin;
     int eeprom;
     int current;
 

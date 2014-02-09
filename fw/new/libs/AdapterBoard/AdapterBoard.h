@@ -12,8 +12,8 @@ void AdapterBoard::init()
   led.init(LED_R, LED_G, LED_B);
   led.set(1, 0, 0);
 
-  //Setup backlight, restore value
-  backlight.init(BACKLIGHT_PIN);
+  //Setup backlight, restore previous brightness, but don't enable
+  backlight.init(BACKLIGHT_PIN, SUPPLY_EN);
   backlight.setLast();
 }
 

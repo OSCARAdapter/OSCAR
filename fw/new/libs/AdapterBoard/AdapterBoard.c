@@ -10,6 +10,7 @@
 #define SW_ON 4
 #define SW_UP 12
 #define SW_DOWN 6
+#define SUPPLY_EN 8
 
 class AdapterBoard
 {

@@ -2,12 +2,16 @@
 #include <EEPROM.h>
 #include <Backlight.h>
 
-void Backlight::init(int pin, int eeprom)
+void Backlight::init(int pwm_pin, int en_pin, int eeprom)
 {
-  pinMode(pin, OUTPUT);
-  this.pin = pin;
+  this.pwm_pin = pwm_pin;
+  this.en_pin = en_pin;
   this.eeprom = eeprom;
   current = levels[0];
+
+  pinMode(pwm_pin, OUTPUT);
+  pinMode(en_pin, OUTPUT);
+  off();
 }
 
 void Backlight::set(int level)
@@ -53,4 +57,14 @@ int Backlight::findNearestStep(int level)
   }
 
   return 0;
+}
+
+void Backlight::on()
+{
+  digitalWrite(en_pin, 1);
+}
+
+void Backlight::off()
+{
+  digitalWrite(en_pin, 0);
 }
