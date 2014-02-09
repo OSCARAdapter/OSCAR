@@ -68,3 +68,8 @@ void Backlight::off()
 {
   digitalWrite(en_pin, 0);
 }
+
+bool Backlight::isOn()
+{
+  return digitalRead(en_pin);
+}

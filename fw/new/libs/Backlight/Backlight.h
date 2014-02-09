@@ -14,6 +14,7 @@ class Backlight
 
     void on();
     void off();
+    bool isOn();
 
   private:
     int findNearestStep(int level);
