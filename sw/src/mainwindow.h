@@ -10,6 +10,12 @@ class MainWindow : public QMainWindow
   public:
     MainWindow();
 
+  public slots:
+    void togglePower();
+    void increaseBacklight();
+    void decreaseBacklight();
+    void sliderChanged(int new);
+
   private:
     Ui::MainWindow ui;
 };
