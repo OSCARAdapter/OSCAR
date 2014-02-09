@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
     void togglePower();
     void increaseBacklight();
     void decreaseBacklight();
-    void sliderChanged(int new);
+    void sliderChanged(int value);
 
   private:
     Ui::MainWindow ui;

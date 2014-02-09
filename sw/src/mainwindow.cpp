@@ -5,22 +5,22 @@ MainWindow::MainWindow()
 {
   ui.setupUi(this);
 
-  CONNECT(powerButton, clicked(), this, togglePower());
-  CONNECT(upButton, clicked(), this, increaseBacklight());
-  CONNECT(downButton, clicked(), this, decreaseBacklight());
-  CONNECT(backlightSlider, valueChanged(int), this, sliderChanged(int));
+  connect(ui.powerButton, SIGNAL(clicked()), this, SLOT(togglePower()));
+  connect(ui.upButton, SIGNAL(clicked()), this, SLOT(increaseBacklight()));
+  connect(ui.downButton, SIGNAL(clicked()), this, SLOT(decreaseBacklight()));
+  connect(ui.backlightSlider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
 }
 
 void MainWindow::togglePower()
 {
   //TODO: implement sending via USB
-  if(powerButton.text == "On")
+  if(ui.powerButton->text() == "On")
   {
-    powerButton.text = "Off";
+    ui.powerButton->setText("Off");
   }
   else
   {
-    powerButton.text = "On";
+    ui.powerButton->setText("On");
   }
 }
 
@@ -42,34 +42,34 @@ int bodgeFindNearestStep(int level)
   return 0;
 }
 
-void bodgeIncrease()
+void bodgeIncrease(Ui::MainWindow ui)
 {
-  int curStep = bodgeFindNearestStep(backlightSlider.value);
+  int curStep = bodgeFindNearestStep(ui.backlightSlider->value());
   if((curStep+1) < NUM_LEVELS)
-    backlightSlider.value = levels[curStep+1];
+    ui.backlightSlider->setValue(levels[curStep+1]);
 }
 
-void bodgeDecrease()
+void bodgeDecrease(Ui::MainWindow ui)
 {
-  int curStep = bodgeFindNearestStep(backlightSlider.value);
+  int curStep = bodgeFindNearestStep(ui.backlightSlider->value());
   if((curStep-1) >= 0)
-    backlightSlider.value = levels[curStep-1];
+    ui.backlightSlider->setValue(levels[curStep-1]);
 }
 /*-----------------BODGE END------------------------------ */
 
 void MainWindow::increaseBacklight()
 {
   //TODO: send
-  bodgeIncrease();
+  bodgeIncrease(ui);
 }
 
 void MainWindow::decreaseBacklight()
 {
   //TODO: send
-  bodgeDecrease();
+  bodgeDecrease(ui);
 }
 
-void MainWindow::sliderChanged()
+void MainWindow::sliderChanged(int value)
 {
   //TODO:
 }
