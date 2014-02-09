@@ -3,3 +3,4 @@ sw/Makefile
 sw/bin
 sw/build
 *.o
+*.swo
