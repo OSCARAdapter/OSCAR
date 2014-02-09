@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
+    <width>447</width>
     <height>233</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>OSCAR</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -32,7 +32,7 @@
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>366</width>
+        <width>319</width>
         <height>20</height>
        </size>
       </property>
@@ -63,6 +63,12 @@
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="tickPosition">
+            <enum>QSlider::TicksBelow</enum>
+           </property>
+           <property name="tickInterval">
+            <number>16</number>
            </property>
           </widget>
          </item>
@@ -96,7 +102,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>494</width>
+     <width>447</width>
      <height>23</height>
     </rect>
    </property>
