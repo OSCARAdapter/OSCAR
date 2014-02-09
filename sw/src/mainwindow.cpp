@@ -68,3 +68,8 @@ void MainWindow::decreaseBacklight()
   //TODO: send
   bodgeDecrease();
 }
+
+void MainWindow::sliderChanged()
+{
+  //TODO:
+}
