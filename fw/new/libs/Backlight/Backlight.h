@@ -28,6 +28,7 @@ class Backlight
     int en_pin;
     int eeprom;
     int current;
+    bool onState;
 };
 
 #endif

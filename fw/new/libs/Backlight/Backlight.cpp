@@ -8,6 +8,7 @@ void Backlight::init(int pin_pwm, int pin_en, int eeprom_location)
   en_pin = pin_en;
   eeprom = eeprom_location;
   current = levels[0];
+  onState = false;
 
   pinMode(pwm_pin, OUTPUT);
   pinMode(en_pin, OUTPUT);
@@ -63,15 +64,17 @@ int Backlight::findNearestStep(int level)
 
 void Backlight::on()
 {
+  onState = true;
   digitalWrite(en_pin, 1);
 }
 
 void Backlight::off()
 {
+  onState = false;
   digitalWrite(en_pin, 0);
 }
 
 bool Backlight::isOn()
 {
-  return digitalRead(en_pin);
+  return onState;
 }

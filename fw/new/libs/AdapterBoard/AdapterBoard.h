@@ -35,9 +35,11 @@ class AdapterBoard
     RGBLed led;
     Backlight backlight;
 
-    bool prev_swOn;
-    bool prev_swUp;
-    bool prev_swDown;
+    unsigned switchDelay;
+
+    int prev_swOn;
+    int prev_swUp;
+    int prev_swDown;
 };
 
 #endif
