@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>343</width>
-    <height>157</height>
+    <height>108</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,6 +31,12 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="1">
        <widget class="QPushButton" name="powerButton">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>24</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>50</width>
@@ -83,14 +89,14 @@
            <widget class="QPushButton" name="upButton">
             <property name="minimumSize">
              <size>
-              <width>32</width>
-              <height>32</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>32</width>
-              <height>32</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
             <property name="text">
@@ -102,14 +108,14 @@
            <widget class="QPushButton" name="downButton">
             <property name="minimumSize">
              <size>
-              <width>32</width>
-              <height>32</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>32</width>
-              <height>32</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
             <property name="text">
