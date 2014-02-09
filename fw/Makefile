@@ -1,4 +1,4 @@
-P = ../..
+P = ..
 
 BOARD_TAG = leonardo
 MONITOR_PORT = /dev/leo.usb*
