@@ -1,4 +1,7 @@
 #include <QtGui>
+#ifdef Q_OS_WIN
+#include <QtWinExtras>
+#endif
 #include "mainwindow.h"
 
 MainWindow::MainWindow()
@@ -9,6 +12,20 @@ MainWindow::MainWindow()
   connect(ui.upButton, SIGNAL(clicked()), this, SLOT(increaseBacklight()));
   connect(ui.downButton, SIGNAL(clicked()), this, SLOT(decreaseBacklight()));
   connect(ui.backlightSlider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
+
+  stylize();
+}
+
+void MainWindow::stylize()
+{
+#ifdef Q_OS_WIN
+  if(QtWin::isCompositionEnabled())
+  {
+    QtWin::extendFrameIntoClientArea(this, -1, -1, -1, -1);
+    setAttribute(Qt::WA_TranslucentBackground, true);
+    setAttribute(Qt::WA_NoSystemBackground, false);
+  }
+#endif
 }
 
 void MainWindow::togglePower()
