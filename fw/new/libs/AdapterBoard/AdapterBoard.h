@@ -1,75 +1,43 @@
-#include <RGBLed.h>
+#ifndef ADAPTERBOARD_H
+#define ADAPTERBOARD_H
+
 #include <Backlight.h>
-#include <AdapterBoard.h>
+#include <RGBLed.h>
 
-AdapterBoard::AdapterBoard()
+#define LED_R 13
+#define LED_G 9
+#define LED_B 10
+#define BACKLIGHT_PIN 11
+#define SUPPLY_EN 8
+
+//When reading the switches, the logical value is inverted from the actual
+//due to the board design.
+#define SW_ON 4
+#define SW_UP 12
+#define SW_DOWN 6
+
+#define STANDBY_COLOUR 1, 0, 0
+#define ON_COLOUR      20, 20, 20
+
+class AdapterBoard
 {
-}
+  public:
+    AdapterBoard();
+    void init();
+    void poll();
 
-void AdapterBoard::init()
-{
-  //Initialize the led, set to 'standby'
-  led.init(LED_R, LED_G, LED_B);
-  led.set(STANDBY_COLOUR);
+  private:
+    void initSwitches();
+    void pollSwitches();
 
-  //Setup backlight, restore previous brightness, but don't enable
-  backlight.init(BACKLIGHT_PIN, SUPPLY_EN);
-  backlight.setLast();
+    void togglePower();
 
-  //Initialize the switches on board
-  initSwitches();
-}
+    RGBLed led;
+    Backlight backlight;
 
-void AdapterBoard::poll()
-{
-  //Check the switches, execute action if necessary
-  pollSwitches();
+    bool prev_swOn;
+    bool prev_swUp;
+    bool prev_swDown;
+};
 
-  //TODO: USB?
-}
-
-void AdapterBoard::initSwitches()
-{
-  pinMode(SW_ON, INPUT);
-  pinMode(SW_UP, INPUT);
-  pinMode(SW_DOWN, INPUT);
-
-  prev_swOn = !digitalRead(SW_ON);
-  prev_swUp = !digitalRead(SW_UP);
-  prev_swDown = !digitalRead(SW_DOWN);
-}
-
-void AdapterBoard::pollSwitches()
-{
-  boolean swOn = !digitalRead(SW_ON);
-  boolean swUp = !digitalRead(SW_UP);
-  boolean swDown = !digitalRead(SW_DOWN);
-
-  if(swOn == HIGH && prev_swOn == LOW)
-    togglePower();
-
-  //When both pressed, backlight up button has priority
-  if(swUp == HIGH && prev_swUp == LOW)
-    backlight.up();
-  else if(swDown == HIGH && prev_swDown == low)
-    backlight.down();
-
-  prev_swOn = swOn;
-  prev_swUp = swUp;
-  prev_swDown = swDown;
-}
-
-void AdapterBoard::togglePower()
-{
-  if(backlight.isOn())
-  {
-    backlight.off();
-    led.set(STANDBY_COLOUR);
-  }
-  else
-  {
-    backlight.setLast();
-    backlight.on();
-    led.set(ON_COLOUR);
-  }
-}
+#endif

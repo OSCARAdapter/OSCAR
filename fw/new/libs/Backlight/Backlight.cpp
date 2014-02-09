@@ -1,12 +1,12 @@
-#include <Arduino.h>
 #include <EEPROM.h>
 #include <Backlight.h>
+#include <Arduino.h>
 
-void Backlight::init(int pwm_pin, int en_pin, int eeprom)
+void Backlight::init(int pin_pwm, int pin_en, int eeprom_location)
 {
-  this.pwm_pin = pwm_pin;
-  this.en_pin = en_pin;
-  this.eeprom = eeprom;
+  pwm_pin = pin_pwm;
+  en_pin = pin_en;
+  eeprom = eeprom_location;
   current = levels[0];
 
   pinMode(pwm_pin, OUTPUT);
@@ -16,14 +16,14 @@ void Backlight::init(int pwm_pin, int en_pin, int eeprom)
 
 void Backlight::set(int level)
 {
-  analogWrite(pin, level);
+  analogWrite(pwm_pin, level);
   current = level;
   EEPROM.write(eeprom, level);
 }
 
 void Backlight::setLast()
 {
-  this.set(EEPROM.read(eeprom));
+  set(EEPROM.read(eeprom));
 }
 
 int Backlight::get()
@@ -33,16 +33,18 @@ int Backlight::get()
 
 void Backlight::up()
 {
-  int nextStep = findNearestStep(this.get())++;
+  int curStep = findNearestStep(get());
+  int nextStep = curStep++;
   if(nextStep < NUM_LEVELS)
-    this.set(levels[nextStep]);
+    set(levels[nextStep]);
 }
 
 void Backlight::down()
 {
-  int nextStep = findNearestStep(this.get())--;
+  int curStep = findNearestStep(get());
+  int nextStep = curStep--;
   if(nextStep >= 0)
-    this.set(levels[nextStep]);
+    set(levels[nextStep]);
 }
 
 int Backlight::findNearestStep(int level)
@@ -52,7 +54,7 @@ int Backlight::findNearestStep(int level)
 
   for(int i=0; i<NUM_LEVELS-1; i++)
   {
-    if((levels[i] =< level) && (levels[i+1] > level))
+    if((levels[i] <= level) && (levels[i+1] > level))
       return i;
   }
 

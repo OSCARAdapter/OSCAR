@@ -13,4 +13,4 @@ void loop()
   board.poll();
 }
 
-# vim:ft=c
+// vim:ft=c
