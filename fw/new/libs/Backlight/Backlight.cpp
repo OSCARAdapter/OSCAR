@@ -2,6 +2,11 @@
 #include <Backlight.h>
 #include <Arduino.h>
 
+//Levels chosen by careful observation
+#define NUM_LEVELS 17
+int levels[] = {0, 1, 2, 3, 4, 6, 8, 12, 16, 23,
+                      32, 45, 64, 90, 128, 180, 255};
+
 void Backlight::init(int pin_pwm, int pin_en, int eeprom_location)
 {
   pwm_pin = pin_pwm;
@@ -35,17 +40,15 @@ int Backlight::get()
 void Backlight::up()
 {
   int curStep = findNearestStep(get());
-  int nextStep = curStep++;
-  if(nextStep < NUM_LEVELS)
-    set(levels[nextStep]);
+  if((curStep+1) < NUM_LEVELS)
+    set(levels[curStep+1]);
 }
 
 void Backlight::down()
 {
   int curStep = findNearestStep(get());
-  int nextStep = curStep--;
-  if(nextStep >= 0)
-    set(levels[nextStep]);
+  if((curStep-1) >= 0)
+    set(levels[curStep-1]);
 }
 
 int Backlight::findNearestStep(int level)

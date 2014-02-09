@@ -1,11 +1,6 @@
 #ifndef BACKLIGHT_H
 #define BACKLIGHT_H
 
-//Levels chosen by careful observation
-#define NUM_LEVELS 17
-const int levels[] = {0, 1, 2, 3, 4, 6, 8, 12, 16, 23,
-                      32, 45, 64, 90, 128, 180, 255};
-
 class Backlight
 {
   public:
