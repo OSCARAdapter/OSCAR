@@ -23,7 +23,7 @@ void MainWindow::stylize()
   {
     QtWin::extendFrameIntoClientArea(this, -1, -1, -1, -1);
     setAttribute(Qt::WA_TranslucentBackground, true);
-    setAttribute(Qt::WA_NoSystemBackground, false);
+    setAttribute(Qt::WA_NoSystemBackground, true);
   }
 #endif
 }
