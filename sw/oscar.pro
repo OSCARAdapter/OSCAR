@@ -6,6 +6,7 @@ OBJECTS_DIR = build
 MOC_DIR     = build
 UI_DIR      = build
 DESTDIR     = bin
+RESOURCES = ui/oscar.qrc
 
 QT += widgets
 win32 {
