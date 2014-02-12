@@ -1,3 +1,17 @@
+/* USB commands use the first byte as the 'type' variable.
+ * Subsequent bytes are generally the 'arguments'.
+ * So host->device usb packets usually look like:
+ * [command, arg1, arg2, 0, 0, ... , 0, 0]
+ * to which the device will respond with
+ * [CMD_ACK, command, 0, 0, 0 ..., 0, 0]
+ *
+ * The exception to this, are the commands which 'GET'
+ * For them host->device generally looks like:
+ * [command, 0, ..., 0, 0]
+ * to which the device responds
+ * [CMD_RESP, command, arg1, arg2, 0, ..., 0, 0]
+ * */
+
 #ifndef USB_COMMANDS_H
 #define USB_COMMANDS_H
 
