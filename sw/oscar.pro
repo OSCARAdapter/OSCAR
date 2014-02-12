@@ -1,5 +1,9 @@
-HEADERS = src/mainwindow.h
+HEADERS = src/mainwindow.h \
+          src/devicethread.h \
+          src/boardv1.h
 SOURCES = src/mainwindow.cpp \
+          src/devicethread.cpp \
+          src/boardv1.cpp \
           src/main.cpp
 FORMS   = ui/mainwindow.ui
 OBJECTS_DIR = build
