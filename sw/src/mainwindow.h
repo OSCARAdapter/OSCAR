@@ -17,7 +17,7 @@ class MainWindow : public QWidget
     void sliderChanged(int value);
 
   private:
-	void stylize();
+    void stylize();
     Ui::MainWindow ui;
 };
 
