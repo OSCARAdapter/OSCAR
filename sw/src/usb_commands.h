@@ -1,0 +1,1 @@
+../../fw/libs/AdapterBoard/usb_commands.h
