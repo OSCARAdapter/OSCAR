@@ -3,6 +3,7 @@
 
 #include <Backlight.h>
 #include <RGBLed.h>
+#include <usb.h>
 
 #define LED_R 13
 #define LED_G 9
@@ -29,11 +30,13 @@ class AdapterBoard
   private:
     void initSwitches();
     void pollSwitches();
+    void handleUSB();
 
     void togglePower();
 
     RGBLed led;
     Backlight backlight;
+    USB usb;
 
     unsigned switchDelay;
 
