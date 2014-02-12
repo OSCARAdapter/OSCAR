@@ -86,3 +86,18 @@ int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3)
 
   return 0;
 }
+
+void BoardV1::backlightOn()
+{
+  return sendCmd(CMD_BL_ON);
+}
+
+void BoardV1::backlightOff()
+{
+  return sendCmd(CMD_BL_OFF);
+}
+
+void BoardV1::backlightLevel(int level)
+{
+  return sendCmd(CMD_BL_LEVEL, (uint8_t)level);
+}

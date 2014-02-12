@@ -19,9 +19,9 @@ class BoardV1
     int attachDevice();
 
     //Convenience methods
-    int blOn();
-    int blOff();
-    int blLevel(int level);
+    int backlightOn();
+    int backlightOff();
+    int backlightLevel(int level);
 
   private:
     //Sends the command with arguments and waits for an ACK
