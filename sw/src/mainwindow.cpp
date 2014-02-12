@@ -7,13 +7,12 @@
 MainWindow::MainWindow()
 {
   ui.setupUi(this);
+  stylize();
 
   connect(ui.powerButton, SIGNAL(clicked()), this, SLOT(togglePower()));
   connect(ui.upButton, SIGNAL(clicked()), this, SLOT(increaseBacklight()));
   connect(ui.downButton, SIGNAL(clicked()), this, SLOT(decreaseBacklight()));
-  connect(ui.backlightSlider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
-
-  stylize();
+  connect(ui.backlightSlider, SIGNAL(sliderMoved(int)), this, SLOT(sliderChanged(int)));
 }
 
 void MainWindow::stylize()
@@ -21,6 +20,7 @@ void MainWindow::stylize()
 #ifdef Q_OS_WIN
   if(QtWin::isCompositionEnabled())
   {
+    QtWin::enableBlurBehindWindow(this);
     QtWin::extendFrameIntoClientArea(this, -1, -1, -1, -1);
     setAttribute(Qt::WA_TranslucentBackground, true);
     setAttribute(Qt::WA_NoSystemBackground, true);
