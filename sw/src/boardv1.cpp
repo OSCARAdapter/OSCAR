@@ -47,6 +47,16 @@ int BoardV1::attachDevice()
   return 0;
 }
 
+int BoardV1::sendCmd(uint8_t cmd)
+{
+  return sendCmd(cmd, 0, 0, 0);
+}
+
+int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1)
+{
+  return sendCmd(cmd, arg1, 0, 0);
+}
+
 int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3)
 {
   if(!dev)
