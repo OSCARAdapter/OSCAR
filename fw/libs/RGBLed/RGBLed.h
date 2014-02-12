@@ -7,6 +7,8 @@ class RGBLed
     void init(int pinR, int pinG, int pinB);
     void set(int r, int g, int b);
 
+    unsigned char r, g, b;
+
   private:
     int r_pin;
     int g_pin;
