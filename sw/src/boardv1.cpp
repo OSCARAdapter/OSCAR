@@ -87,17 +87,28 @@ int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3)
   return 0;
 }
 
-void BoardV1::backlightOn()
+bool BoardV1::isConnected()
 {
-  return sendCmd(CMD_BL_ON);
-}
+  if(!dev)
+    goto fail;
 
-void BoardV1::backlightOff()
-{
-  return sendCmd(CMD_BL_OFF);
-}
+  uint8_t buf[EP_LEN];
+  buf[0] = CMD_BL_GET_STATE;
+  int actual, ret;
+  ret = libusb_bulk_transfer(EP_OUT, buf, EP_LEN, &actual, USB_TIMEOUT);
+  if(ret != 0)
+    goto fail;
 
-void BoardV1::backlightLevel(int level)
-{
-  return sendCmd(CMD_BL_LEVEL, (uint8_t)level);
+  //Get ACK
+  ret = libusb_bulk_transfer(EP_IN, buf, EP_LEN, &actual, USB_TIMEOUT);
+  if(ret != 0)
+    goto fail;
+  if(buf[0] != CMD_RESP && buf[1] != CMD_BL_GET_STATE)
+    goto fail;
+
+  return true;
+
+fail:
+  dev = NULL;
+  return false;
 }

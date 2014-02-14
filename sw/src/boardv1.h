@@ -17,11 +17,7 @@ class BoardV1
     //Attempts to attach to the device
     //Returns <0 on failure, 0 on success
     int attachDevice();
-
-    //Convenience methods
-    int backlightOn();
-    int backlightOff();
-    int backlightLevel(int level);
+    bool isConnected();
 
   private:
     //Sends the command with arguments and waits for an ACK
