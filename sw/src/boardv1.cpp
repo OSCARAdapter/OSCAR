@@ -1,9 +1,11 @@
 #include "boardv1.h"
+#include "usb_commands.h"
+#include <string.h>
 
 BoardV1::BoardV1()
 {
   dev = NULL;
-  libusb_init = false;
+  libusb_is_init = false;
 }
 
 BoardV1::~BoardV1()
@@ -20,12 +22,12 @@ int BoardV1::attachDevice()
 {
   int ret;
 
-  if(!libusb_init)
+  if(!libusb_is_init)
   {
     ret = libusb_init(NULL);
     if(ret != 0)
       return -1;
-    libusb_init = true;
+    libusb_is_init = true;
   }
 
   dev = libusb_open_device_with_vid_pid(NULL, VID, PID);
@@ -35,7 +37,7 @@ int BoardV1::attachDevice()
   ret = libusb_kernel_driver_active(dev, 0);
   if(ret == 1)
   {
-    ret = libusb_kernel_driver_detach(dev, 0);
+    ret = libusb_detach_kernel_driver(dev, 0);
     if(ret != 0)
       return -3;
   }
@@ -45,6 +47,11 @@ int BoardV1::attachDevice()
     return -4;
 
   return 0;
+}
+
+int BoardV1::sendCmd(uint8_t cmd)
+{
+  return sendCmd(cmd, 0, 0, 0, NULL);
 }
 
 int BoardV1::sendCmd(uint8_t cmd, uint8_t* buf)
@@ -59,11 +66,6 @@ int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1)
 
 int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3, uint8_t* readBuf)
 {
-  return sendCmd(cmd, arg1, arg2, arg3, NULL);
-}
-
-int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3, uint8_t* readBuf)
-{
   if(!dev)
     return -6;
 
@@ -74,14 +76,14 @@ int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3, uint
   buf[2] = arg2;
   buf[3] = arg3;
   int actual, ret;
-  ret = libusb_bulk_transfer(EP_OUT, buf, EP_LEN, &actual, USB_TIMEOUT);
+  ret = libusb_bulk_transfer(dev, EP_OUT, buf, EP_LEN, &actual, USB_TIMEOUT);
   if(ret != 0)
     return -1;
   if(actual < 4)
     return -2;
 
   //Read the acknowledgment/response
-  ret = libusb_bulk_transfer(EP_IN, buf, EP_LEN, &actual, USB_TIMEOUT);
+  ret = libusb_bulk_transfer(dev, EP_IN, buf, EP_LEN, &actual, USB_TIMEOUT);
   if(ret != 0)
     return -3;
   if(!(buf[1] == cmd && (buf[0] == CMD_ACK || buf[0] == CMD_RESP)))
@@ -101,12 +103,12 @@ bool BoardV1::isConnected()
   uint8_t buf[EP_LEN];
   buf[0] = CMD_BL_GET_STATE;
   int actual, ret;
-  ret = libusb_bulk_transfer(EP_OUT, buf, EP_LEN, &actual, USB_TIMEOUT);
+  ret = libusb_bulk_transfer(dev, EP_OUT, buf, EP_LEN, &actual, USB_TIMEOUT);
   if(ret != 0)
     goto fail;
 
   //Get ACK
-  ret = libusb_bulk_transfer(EP_IN, buf, EP_LEN, &actual, USB_TIMEOUT);
+  ret = libusb_bulk_transfer(dev, EP_IN, buf, EP_LEN, &actual, USB_TIMEOUT);
   if(ret != 0)
     goto fail;
   if(buf[0] != CMD_RESP && buf[1] != CMD_BL_GET_STATE)

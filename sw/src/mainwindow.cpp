@@ -3,13 +3,14 @@
 #include <QtWinExtras>
 #endif
 #include "mainwindow.h"
+#include "usb_commands.h"
 
 MainWindow::MainWindow()
 {
   ui.setupUi(this);
   stylize();
   dev = new DeviceThread();
-  dev.start();
+  dev->start();
 
   connect(ui.powerButton, SIGNAL(clicked()), this, SLOT(togglePower()));
   connect(ui.upButton, SIGNAL(clicked()), this, SLOT(increaseBacklight()));
@@ -83,25 +84,25 @@ void bodgeDecrease(Ui::MainWindow ui)
 void MainWindow::increaseBacklight()
 {
   bodgeIncrease(ui);
-  Command_t* cmd = new Command_t();
+  Command_t cmd;
   cmd.cmd = CMD_BL_UP;
-  dev.enqueue(cmd);
+  dev->enqueue(cmd);
 }
 
 void MainWindow::decreaseBacklight()
 {
   bodgeDecrease(ui);
-  Command_t* cmd = new Command_t();
+  Command_t cmd;
   cmd.cmd = CMD_BL_DOWN;
-  dev.enqueue(cmd);
+  dev->enqueue(cmd);
 }
 
 void MainWindow::sliderChanged(int value)
 {
-  Command_t* cmd = new Command_t();
+  Command_t cmd;
   cmd.cmd = CMD_BL_LEVEL;
   cmd.arg1 = value;
-  dev.enqueue(cmd);
+  dev->enqueue(cmd);
 }
 
 void MainWindow::backlightResponse(bool on, int level)
@@ -115,10 +116,10 @@ void MainWindow::backlightResponse(bool on, int level)
 
 void MainWindow::deviceConnected()
 {
-  ui.statusLabel.setText("Connected to OSCAR");
+  //ui.statusLabel.setText("Connected to OSCAR");
 }
 
 void MainWindow::deviceNotConnected()
 {
-  ui.statusLabel.setText("Disconnected from OSCAR");
+  //ui.statusLabel.setText("Disconnected from OSCAR");
 }

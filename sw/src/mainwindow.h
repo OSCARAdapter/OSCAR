@@ -11,13 +11,11 @@ class MainWindow : public QWidget
   public:
     MainWindow();
 
-  public slots:
     void togglePower();
     void increaseBacklight();
     void decreaseBacklight();
     void sliderChanged(int value);
 
-  private slots:
     void backlightResponse(bool on, int level);
     void deviceConnected();
     void deviceNotConnected();

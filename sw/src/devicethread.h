@@ -24,7 +24,6 @@ class DeviceThread : public QThread
     void setBacklightLevel(int level);
     void getBacklightState();
 
-  slot:
     void finish();
     void enqueue(const Command_t & c);
 

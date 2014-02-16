@@ -1,4 +1,5 @@
 #include "devicethread.h"
+#include "usb_commands.h"
 
 DeviceThread::DeviceThread()
 {
@@ -10,7 +11,7 @@ void DeviceThread::finish()
   exit = true;
 }
 
-DeviceThread::run()
+void DeviceThread::run()
 {
   int ret;
   while(!exit)
@@ -43,8 +44,8 @@ DeviceThread::run()
       else
       {
         uint8_t buf[EP_LEN];
-        board.sendCmd(c.cmd, c.arg1, c.arg2, c.arg3, &buf);
-        if(buf[0] == CMD_RES && buf[1] == CMD_BL_GET_STATE)
+        board.sendCmd(c.cmd, c.arg1, c.arg2, c.arg3, buf);
+        if(buf[0] == CMD_RESP && buf[1] == CMD_BL_GET_STATE)
           emit(backlightResponse(buf[2], buf[3]));
       }
     }
