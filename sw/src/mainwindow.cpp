@@ -8,11 +8,15 @@ MainWindow::MainWindow()
 {
   ui.setupUi(this);
   stylize();
+  dev = new DeviceThread();
+  dev.start();
 
   connect(ui.powerButton, SIGNAL(clicked()), this, SLOT(togglePower()));
   connect(ui.upButton, SIGNAL(clicked()), this, SLOT(increaseBacklight()));
   connect(ui.downButton, SIGNAL(clicked()), this, SLOT(decreaseBacklight()));
   connect(ui.backlightSlider, SIGNAL(sliderMoved(int)), this, SLOT(sliderChanged(int)));
+
+  connect(dev, SIGNAL(backlightResponse(bool, int)), this, backlightResponse(bool, int));
 }
 
 void MainWindow::stylize()
@@ -89,4 +93,13 @@ void MainWindow::decreaseBacklight()
 void MainWindow::sliderChanged(int value)
 {
   //TODO:
+}
+
+void MainWindow::backlightResponse(bool on, int level)
+{
+  ui.backlightSlider->setValue(level);
+  if(on)
+    ui.powerButton->setText("Off");
+  else
+    ui.powerButton->setText("On");
 }

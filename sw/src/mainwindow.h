@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "ui_mainwindow.h"
+#include"devicethread.h"
 
 class MainWindow : public QWidget
 {
@@ -16,9 +17,14 @@ class MainWindow : public QWidget
     void decreaseBacklight();
     void sliderChanged(int value);
 
+  private slots:
+    void backlightResponse(bool on, int level);
+
   private:
     void stylize();
+
     Ui::MainWindow ui;
+    DeviceThread *dev;
 };
 
 #endif
