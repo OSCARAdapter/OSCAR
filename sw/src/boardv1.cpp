@@ -64,6 +64,12 @@ int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1)
   return sendCmd(cmd, arg1, 0, 0, NULL);
 }
 
+
+int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3)
+{
+  return sendCmd(cmd, arg1, arg2, arg3, NULL);
+}
+
 int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3, uint8_t* readBuf)
 {
   if(!dev)

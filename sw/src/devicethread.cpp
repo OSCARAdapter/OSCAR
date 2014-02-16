@@ -59,3 +59,10 @@ void DeviceThread::enqueue(const Command_t & c)
 {
   cmd.enqueue(c);
 }
+
+void DeviceThread::getBacklightState()
+{
+  Command_t c;
+  c.cmd = CMD_BL_GET_STATE;
+  cmd.enqueue(c);
+}
