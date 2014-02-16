@@ -47,20 +47,20 @@ int BoardV1::attachDevice()
   return 0;
 }
 
-int BoardV1::sendCmd(uint8_t cmd)
+int BoardV1::sendCmd(uint8_t cmd, uint8_t* buf)
 {
-  return sendCmd(cmd, 0, 0, 0);
+  return sendCmd(cmd, 0, 0, 0, buf);
 }
 
 int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1)
 {
-  return sendCmd(cmd, arg1, 0, 0);
+  return sendCmd(cmd, arg1, 0, 0, NULL);
 }
 
-int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3)
+int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3, uint8_t* readBuf)
 {
   if(!dev)
-    return;
+    return -6;
 
   //Send the command
   uint8_t buf[EP_LEN];
@@ -75,14 +75,15 @@ int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3)
   if(actual < 4)
     return -2;
 
-  //Read the acknowledgment
+  //Read the acknowledgment/response
   ret = libusb_bulk_transfer(EP_IN, buf, EP_LEN, &actual, USB_TIMEOUT);
   if(ret != 0)
     return -3;
-  if(buf[0] != CMD_ACK)
+  if(!(buf[1] == cmd && (buf[0] == CMD_ACK || buf[0] == CMD_RESP)))
     return -4;
-  if(buf[1] != cmd)
-    return -5
+
+  if(readBuf != NULL)
+    memcpy(&readBuf, buf, EP_LEN);
 
   return 0;
 }

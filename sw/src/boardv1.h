@@ -21,10 +21,11 @@ class BoardV1
 
   private:
     //Sends the command with arguments and waits for an ACK
-    //Must NOT be used with a 'GET' command
+    //Buf is required to be EP_LEN in size
+    int sendCmd(uint8_t cmd, uint8_t* buf);
     int sendCmd(uint8_t cmd);
     int sendCmd(uint8_t cmd, uint8_t arg1);
-    int sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3);
+    int sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3, uint8_t* buf);
 
     libusb_device_handle *dev;
     bool libusb_init;
