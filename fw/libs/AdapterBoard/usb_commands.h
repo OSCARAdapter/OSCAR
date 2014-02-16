@@ -28,4 +28,6 @@
 #define CMD_RGB_SET      0x20
 #define CMD_RGB_GET      0x2F
 
+#define IS_GET(x) (x == CMD_RGB_GET || x == CMD_BL_GET_STATE)
+
 #endif
