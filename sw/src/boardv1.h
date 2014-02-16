@@ -25,6 +25,7 @@ class BoardV1
     int sendCmd(uint8_t cmd, uint8_t* buf);
     int sendCmd(uint8_t cmd);
     int sendCmd(uint8_t cmd, uint8_t arg1);
+    int sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3);
     int sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3, uint8_t* buf);
 
     libusb_device_handle *dev;
