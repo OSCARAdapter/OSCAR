@@ -16,7 +16,9 @@ MainWindow::MainWindow()
   connect(ui.downButton, SIGNAL(clicked()), this, SLOT(decreaseBacklight()));
   connect(ui.backlightSlider, SIGNAL(sliderMoved(int)), this, SLOT(sliderChanged(int)));
 
-  connect(dev, SIGNAL(backlightResponse(bool, int)), this, backlightResponse(bool, int));
+  connect(dev, SIGNAL(backlightResponse(bool, int)), this, SLOT(backlightResponse(bool, int)));
+  connect(dev, SIGNAL(connected()), this, SLOT(deviceConnected()));
+  connect(dev, SIGNAL(notConnected()), this, SLOT(deviceNotConnected()));
 }
 
 void MainWindow::stylize()
@@ -80,19 +82,26 @@ void bodgeDecrease(Ui::MainWindow ui)
 
 void MainWindow::increaseBacklight()
 {
-  //TODO: send
   bodgeIncrease(ui);
+  Command_t* cmd = new Command_t();
+  cmd.cmd = CMD_BL_UP;
+  dev.enqueue(cmd);
 }
 
 void MainWindow::decreaseBacklight()
 {
-  //TODO: send
   bodgeDecrease(ui);
+  Command_t* cmd = new Command_t();
+  cmd.cmd = CMD_BL_DOWN;
+  dev.enqueue(cmd);
 }
 
 void MainWindow::sliderChanged(int value)
 {
-  //TODO:
+  Command_t* cmd = new Command_t();
+  cmd.cmd = CMD_BL_LEVEL;
+  cmd.arg1 = value;
+  dev.enqueue(cmd);
 }
 
 void MainWindow::backlightResponse(bool on, int level)
@@ -102,4 +111,14 @@ void MainWindow::backlightResponse(bool on, int level)
     ui.powerButton->setText("Off");
   else
     ui.powerButton->setText("On");
+}
+
+void MainWindow::deviceConnected()
+{
+  ui.statusLabel.setText("Connected to OSCAR");
+}
+
+void MainWindow::deviceNotConnected()
+{
+  ui.statusLabel.setText("Disconnected from OSCAR");
 }

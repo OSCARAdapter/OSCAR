@@ -19,6 +19,8 @@ class MainWindow : public QWidget
 
   private slots:
     void backlightResponse(bool on, int level);
+    void deviceConnected();
+    void deviceNotConnected();
 
   private:
     void stylize();
