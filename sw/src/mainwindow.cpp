@@ -9,6 +9,8 @@ MainWindow::MainWindow()
 {
   ui.setupUi(this);
   stylize();
+  deviceNotConnected();
+
   dev = new DeviceThread();
   dev->start();
 
@@ -20,6 +22,11 @@ MainWindow::MainWindow()
   connect(dev, SIGNAL(backlightResponse(bool, int)), this, SLOT(backlightResponse(bool, int)));
   connect(dev, SIGNAL(connected()), this, SLOT(deviceConnected()));
   connect(dev, SIGNAL(notConnected()), this, SLOT(deviceNotConnected()));
+}
+
+MainWindow::~MainWindow()
+{
+  dev->finish();
 }
 
 void MainWindow::stylize()
@@ -37,14 +44,15 @@ void MainWindow::stylize()
 
 void MainWindow::togglePower()
 {
-  //TODO: implement sending via USB
   if(ui.powerButton->text() == "On")
   {
     ui.powerButton->setText("Off");
+    dev->setBacklightPower(true);
   }
   else
   {
     ui.powerButton->setText("On");
+    dev->setBacklightPower(false);
   }
 }
 
@@ -99,10 +107,7 @@ void MainWindow::decreaseBacklight()
 
 void MainWindow::sliderChanged(int value)
 {
-  Command_t cmd;
-  cmd.cmd = CMD_BL_LEVEL;
-  cmd.arg1 = value;
-  dev->enqueue(cmd);
+  dev->setBacklightLevel(value);
 }
 
 void MainWindow::backlightResponse(bool on, int level)
@@ -116,10 +121,21 @@ void MainWindow::backlightResponse(bool on, int level)
 
 void MainWindow::deviceConnected()
 {
-  //ui.statusLabel.setText("Connected to OSCAR");
+  ui.statusLabel->setVisible(false);
+  ui.powerButton->setEnabled(true);
+  ui.upButton->setVisible(true);
+  ui.downButton->setVisible(true);
+  ui.backlightSlider->setVisible(true);
+  ui.backlightLabel->setVisible(true);
 }
 
 void MainWindow::deviceNotConnected()
 {
-  //ui.statusLabel.setText("Disconnected from OSCAR");
+  ui.statusLabel->setVisible(true);
+  ui.statusLabel->setText("Disconnected from OSCAR");
+  ui.powerButton->setEnabled(false);
+  ui.upButton->setVisible(false);
+  ui.downButton->setVisible(false);
+  ui.backlightSlider->setVisible(false);
+  ui.backlightLabel->setVisible(false);
 }
