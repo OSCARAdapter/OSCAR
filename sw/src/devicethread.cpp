@@ -22,12 +22,12 @@ void DeviceThread::run()
       if(ret < 0)
       {
         //Failed to attach
-        wait(3000);
-        notConnected();
+        sleep(3000);
+        emit notConnected();
         continue;
       }
       else
-        connected();
+        emit connected();
     }
 
     //Connected, do actual work in this thread...
@@ -51,7 +51,7 @@ void DeviceThread::run()
     }
 
     //Wait for some time period. Number chosen at random as prime.
-    wait(635);
+    sleep(635);
   }
 }
 
