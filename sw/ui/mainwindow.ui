@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>232</width>
-    <height>110</height>
+    <width>282</width>
+    <height>131</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -41,14 +41,14 @@
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout">
        <item row="2" column="0">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="backlightLabel">
          <property name="text">
           <string>Backlight:</string>
          </property>
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="powerLabel">
          <property name="text">
           <string>Power:</string>
          </property>
@@ -69,6 +69,16 @@
            </property>
            <property name="tickInterval">
             <number>16</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="statusLabel">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Status</string>
            </property>
           </widget>
          </item>
