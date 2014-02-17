@@ -64,5 +64,23 @@ void DeviceThread::getBacklightState()
 {
   Command_t c;
   c.cmd = CMD_BL_GET_STATE;
-  cmd.enqueue(c);
+  enqueue(c);
+}
+
+void DeviceThread::setBacklightPower(bool on)
+{
+  Command_t c;
+  if(on)
+    c.cmd = CMD_BL_ON;
+  else
+    c.cmd = CMD_BL_OFF;
+  enqueue(c);
+}
+
+void DeviceThread::setBacklightLevel(int level)
+{
+  Command_t c;
+  c.cmd = CMD_BL_LEVEL;
+  c.arg1 = level;
+  enqueue(c);
 }
