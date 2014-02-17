@@ -20,6 +20,7 @@ class DeviceThread : public QThread
   public:
     DeviceThread();
 
+  public slots:
     void setBacklightPower(bool on);
     void setBacklightLevel(int level);
     void getBacklightState();

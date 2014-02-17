@@ -10,7 +10,9 @@ class MainWindow : public QWidget
 
   public:
     MainWindow();
+    ~MainWindow();
 
+  public slots:
     void togglePower();
     void increaseBacklight();
     void decreaseBacklight();
