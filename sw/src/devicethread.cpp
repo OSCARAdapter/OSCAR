@@ -51,7 +51,7 @@ void DeviceThread::run()
     }
 
     //Wait for some time period. Number chosen at random as prime.
-    msleep(365);
+    msleep(195);
   }
 }
 
