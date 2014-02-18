@@ -1,3 +1,5 @@
+#include <compiler.h>
+
 #ifndef BACKLIGHT_H
 #define BACKLIGHT_H
 
@@ -5,9 +7,9 @@ class Backlight
 {
   public:
     void init(int pwm_pin, int en_pin, int eeprom = 0);
-    void set(int level);
+    void set(uint8_t level);
     void setLast();
-    int get();
+    uint8_t get();
 
     void up();
     void down();
@@ -17,12 +19,12 @@ class Backlight
     bool isOn();
 
   private:
-    int findNearestStep(int level);
+    int findNearestStep(uint8_t level);
 
     int pwm_pin;
     int en_pin;
     int eeprom;
-    int current;
+    uint8_t current;
     bool onState;
 };
 

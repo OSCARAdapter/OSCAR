@@ -20,7 +20,7 @@ void Backlight::init(int pin_pwm, int pin_en, int eeprom_location)
   off();
 }
 
-void Backlight::set(int level)
+void Backlight::set(uint8_t level)
 {
   analogWrite(pwm_pin, level);
   current = level;
@@ -32,7 +32,7 @@ void Backlight::setLast()
   set(EEPROM.read(eeprom));
 }
 
-int Backlight::get()
+uint8_t Backlight::get()
 {
   return current;
 }
@@ -51,7 +51,7 @@ void Backlight::down()
     set(levels[curStep-1]);
 }
 
-int Backlight::findNearestStep(int level)
+int Backlight::findNearestStep(uint8_t level)
 {
   if(level > levels[NUM_LEVELS-2])
     return NUM_LEVELS-1;
