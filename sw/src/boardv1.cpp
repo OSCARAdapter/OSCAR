@@ -96,7 +96,7 @@ int BoardV1::sendCmd(uint8_t cmd, uint8_t arg1, uint8_t arg2, uint8_t arg3, uint
     return -4;
 
   if(readBuf != NULL)
-    memcpy(&readBuf, buf, EP_LEN);
+    memcpy(readBuf, buf, EP_LEN);
 
   return 0;
 }
