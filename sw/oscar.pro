@@ -15,6 +15,9 @@ RESOURCES = ui/oscar.qrc
 QT += widgets
 win32 {
 QT += winextras
+INCLUDEPATH += C:/libusbx-1.0.12-win/include/libusbx-1.0/
+## TODO: add win32 only linking...
+LIBS += C:/libusbx-1.0.12-win/MS64/dll/libusb-1.0.lib
 }
 unix {
 INCLUDEPATH += /usr/include/libusb-1.0/
