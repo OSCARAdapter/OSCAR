@@ -17,7 +17,7 @@ MainWindow::MainWindow()
   connect(ui.powerButton, SIGNAL(clicked()), this, SLOT(togglePower()));
   connect(ui.upButton, SIGNAL(clicked()), this, SLOT(increaseBacklight()));
   connect(ui.downButton, SIGNAL(clicked()), this, SLOT(decreaseBacklight()));
-  connect(ui.backlightSlider, SIGNAL(sliderMoved(int)), this, SLOT(sliderChanged(int)));
+  connect(ui.backlightSlider, SIGNAL(valueChanged(int)), this, SLOT(sliderChanged(int)));
 
   connect(dev, SIGNAL(backlightResponse(bool, int)), this, SLOT(backlightResponse(bool, int)));
   connect(dev, SIGNAL(connected()), this, SLOT(deviceConnected()));
