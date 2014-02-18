@@ -97,7 +97,7 @@ void MainWindow::deviceConnected()
 void MainWindow::deviceNotConnected()
 {
   ui.statusLabel->setVisible(true);
-  ui.statusLabel->setText("Disconnected from OSCAR");
+  ui.statusLabel->setText("Unable to connect to OSCAR");
   ui.powerButton->setEnabled(false);
   ui.upButton->setVisible(false);
   ui.downButton->setVisible(false);
