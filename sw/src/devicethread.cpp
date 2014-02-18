@@ -22,7 +22,7 @@ void DeviceThread::run()
       if(ret < 0)
       {
         //Failed to attach
-        sleep(3000);
+        sleep(1);
         emit notConnected();
         continue;
       }
@@ -51,7 +51,7 @@ void DeviceThread::run()
     }
 
     //Wait for some time period. Number chosen at random as prime.
-    sleep(635);
+    msleep(365);
   }
 }
 
