@@ -42,6 +42,20 @@ void MainWindow::stylize()
 #endif
 }
 
+void MainWindow::paintEvent(QPaintEvent* event)
+{
+  QWidget::paintEvent(event);
+#ifdef Q_OS_WIN
+  if(QtWin::isCompositionEnabled())
+  {
+    QPainter p(this);
+    p.setCompositionMode(QPainter::CompositionMode_SourceIn);
+    p.fillRect(0, 0, this->width(), this->height(), Qt::transparent);
+    p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+  }
+#endif
+}
+
 void MainWindow::togglePower()
 {
   if(ui.powerButton->text() == "On")

@@ -22,6 +22,9 @@ class MainWindow : public QWidget
     void deviceConnected();
     void deviceNotConnected();
 
+  protected:
+    void paintEvent(QPaintEvent *event);
+
   private:
     void stylize();
 
