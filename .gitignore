@@ -8,3 +8,5 @@ sw/debug
 sw/release
 sw/x64
 sw/qrc_*.cpp
+sw/*.suo
+sw/*.vcxproj*
