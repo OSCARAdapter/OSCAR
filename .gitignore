@@ -1,6 +1,10 @@
-build-leonardo
+fw/build-*
 sw/Makefile
 sw/bin
 sw/build
 *.o
 *.swo
+sw/debug
+sw/release
+sw/x64
+sw/qrc_*.cpp
