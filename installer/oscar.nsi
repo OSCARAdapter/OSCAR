@@ -27,6 +27,12 @@ Section "OSCAR" SecOSCAR
 
   ;TODO: Add files here
 
+  ;QT Library
+  File /r "qtlib\*.*"
+  SetOutPath "$INSTDIR\platforms"
+  File /r "qtlib\platforms\*.*"
+
+
   WriteRegStr HKCU "Software\OSCAR" "" $INSTDIR
   WriteUninstaller "$INSTDIR\Uninstall.exe"
 SectionEnd
@@ -39,7 +45,9 @@ LangString DESC_SecOSCAR ${LANG_ENGLISH} "OSCAR control program + drivers"
 
 ;Uninstaller
 Section "Uninstall"
-  ;TODO: Add files here
+  Delete "$INSTDIR\platforms\*"
+  RMDir "$INSTDIR\platforms"
+  Delete "$INSTDIR\*"
 
   Delete "$INSTDIR\Uninstall.exe"
   RMDir "$INSTDIR"
