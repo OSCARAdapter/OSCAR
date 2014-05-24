@@ -10,3 +10,4 @@ sw/x64
 sw/qrc_*.cpp
 sw/*.suo
 sw/*.vcxproj*
+installer/oscar-installer.exe
