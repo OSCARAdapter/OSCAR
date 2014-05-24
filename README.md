@@ -3,6 +3,7 @@ OSCAR
 A Retina screen controlling interface.
 
 This repository contains the software for the host computer program, and the Arduino-ized firmware for the ATMega on board.
+This repostiory also contais the schematics and board files.
 This repository does not contain the new Aruduino variant required to build this code - but it can be found as a submodule.
 
 Getting Started (from Source)
@@ -56,6 +57,10 @@ A makefile system to allow the compilation of the code without requiring the Ard
 
 Contains the firmware for the integrated ATmega. All of the OSCAR code can be found in fw/libs/AdapterBoard.* This keeps the top level oscar.ino clear of any unnecessary code, allowing you to directly extend the device as you require.
 Libraries for backlight control and control of the RGB led can also be found in fw/libs/
+
+*hw/*
+
+Contains the schematics and pcb layouts for the driver board.
 
 *installer/*
 
