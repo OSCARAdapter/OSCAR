@@ -3,4 +3,4 @@
 	url = https://github.com/sudar/Arduino-Makefile
 [submodule "Arduino"]
 	path = Arduino
-	url = https://github.com/arduino/Arduino
+	url = https://github.com/OSCARAdapter/Arduino
