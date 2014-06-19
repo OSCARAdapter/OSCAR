@@ -36,9 +36,11 @@ This requires a C++ compiler, QT5 development libraries, libusb development pack
 *Other*
 On Windows, you will be required to install the drivers for the device, these can be found in installer/drivers.
 
-Getting Started (from Binary)
------------------------------
-TODO: generate the binary
+Getting Started (from Binary - Windows only)
+--------------------------------------------
+1. Download the installer from here
+2. Run the installer
+3. Plug OSCAR in
 
 Repository Overview
 -------------------
@@ -75,6 +77,12 @@ Contains the OSCAR logo, which is included in the software
 
 Has the control software for your computer. This code presents a GUI for Windows, Linux or OSX based upon Qt5 and libusb. The source code can be found in sw/src, UI designs can be found in src/ui.
 
+Other Notes
+-----------
+*Generating 'Combined' file for programming*
+You will need the Caterina-leonardo.hex file from the bootloaders section of the Arduino code. You will also need the fw.hex generated from this source.
+You will also need the tool srec_cat (part of the SRecord suite of tools).
+`srec_cat fw.hex -intel Caterina-leonardo.hex -intel -o combined.hex -intel`
 
 Licensing
 ---------
