@@ -68,12 +68,18 @@ int Backlight::findNearestStep(uint8_t level)
 void Backlight::on()
 {
   onState = true;
+  int bl = get();
+  analogWrite(pwm_pin, 0);
   digitalWrite(en_pin, 1);
+  delay(300);
+  analogWrite(pwm_pin, bl);
 }
 
 void Backlight::off()
 {
   onState = false;
+  analogWrite(pwm_pin, 0);
+  delay(60);
   digitalWrite(en_pin, 0);
 }
 
