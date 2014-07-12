@@ -96,10 +96,12 @@ void AdapterBoard::handleUSB()
       switch(buf[0])
       {
         case CMD_BL_ON:
+          led.set(ON_COLOUR);
           backlight.on();
           break;
         case CMD_BL_OFF:
           backlight.off();
+          led.set(STANDBY_COLOUR);
           break;
         case CMD_BL_LEVEL:
           backlight.set(buf[1]);
