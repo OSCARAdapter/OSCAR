@@ -76,9 +76,9 @@ void AdapterBoard::togglePower()
   }
   else
   {
+    led.set(ON_COLOUR);
     backlight.setLast();
     backlight.on();
-    led.set(ON_COLOUR);
   }
 }
 
