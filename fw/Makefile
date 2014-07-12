@@ -2,7 +2,7 @@ P = ..
 
 BOARD_TAG = oscarleo
 MONITOR_PORT = /dev/leo.usb*
-ARDUINO_LIBS = AdapterBoard Backlight RGBLed EEPROM
+ARDUINO_LIBS = AdapterBoard Backlight RGBLed EEPROM Bounce2
 USER_LIB_PATH = libs
 
 ARDUINO_DIR = $P/Arduino/

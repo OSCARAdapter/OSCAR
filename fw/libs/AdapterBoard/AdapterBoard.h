@@ -3,6 +3,7 @@
 
 #include <Backlight.h>
 #include <RGBLed.h>
+#include <Bounce2.h>
 #include <usb.h>
 
 #define LED_R 13
@@ -13,9 +14,9 @@
 
 //When reading the switches, the logical value is inverted from the actual
 //due to the board design.
-#define SW_ON 4
-#define SW_UP 12
-#define SW_DOWN 6
+#define SW_ON   4  //PD4
+#define SW_UP   12 //PD6
+#define SW_DOWN 6  //PD7
 
 #define STANDBY_COLOUR 1, 0, 0
 #define ON_COLOUR      20, 20, 20
@@ -38,11 +39,7 @@ class AdapterBoard
     Backlight backlight;
     USB usb;
 
-    unsigned switchDelay;
-
-    int prev_swOn;
-    int prev_swUp;
-    int prev_swDown;
+    Bounce swOn, swUp, swDown;
 };
 
 #endif
