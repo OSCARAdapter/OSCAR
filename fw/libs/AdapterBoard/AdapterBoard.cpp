@@ -39,13 +39,13 @@ void AdapterBoard::initSwitches()
 
   swOn = Bounce();
   swOn.attach(SW_ON);
-  swOn.interval(20);
+  swOn.interval(200);
   swUp = Bounce();
   swUp.attach(SW_UP);
-  swUp.interval(20);
+  swUp.interval(200);
   swDown = Bounce();
   swDown.attach(SW_DOWN);
-  swDown.interval(20);
+  swDown.interval(200);
 }
 
 void AdapterBoard::pollSwitches()
