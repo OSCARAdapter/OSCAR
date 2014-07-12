@@ -71,8 +71,8 @@ void AdapterBoard::togglePower()
 {
   if(backlight.isOn())
   {
-    backlight.off();
     led.set(STANDBY_COLOUR);
+    backlight.off();
   }
   else
   {
@@ -103,8 +103,8 @@ void AdapterBoard::handleUSB()
           backlight.on();
           break;
         case CMD_BL_OFF:
-          backlight.off();
           led.set(STANDBY_COLOUR);
+          backlight.off();
           break;
         case CMD_BL_LEVEL:
           backlight.set(buf[1]);
