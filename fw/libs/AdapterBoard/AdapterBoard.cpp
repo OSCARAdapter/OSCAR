@@ -46,7 +46,7 @@ void AdapterBoard::initSwitches()
 void AdapterBoard::pollSwitches()
 {
   //Ignore a few polls
-  if(switchDelay++ < 1000)
+  if(switchDelay++ < 100000)
     return;
 
   int swOn = digitalRead(SW_ON);
