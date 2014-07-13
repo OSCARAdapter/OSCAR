@@ -47,15 +47,14 @@ void AdapterBoard::initSwitches()
   prev_swOn2 = HIGH;
   prev_swUp2 = HIGH;
   prev_swDown2 = HIGH;
-  switchDelay = 0;
+  switchDelay = millis();
 }
 
 void AdapterBoard::pollSwitches()
 {
-  //Ignore a few polls
-  if(switchDelay++ < 40000)
+  if((millis() - switchDelay) < 10)
     return;
-  switchDelay = 0;
+  switchDelay = millis();
 
   int swOn = digitalRead(SW_ON);
   int swUp = digitalRead(SW_UP);
