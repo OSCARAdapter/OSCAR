@@ -135,7 +135,8 @@ void AdapterBoard::handleUSB()
           backlight.off();
           break;
         case CMD_BL_LEVEL:
-          backlight.set(buf[1]);
+          if(backlight.isOn())
+            backlight.set(buf[1]);
           break;
         case CMD_BL_UP:
           backlight.up();
