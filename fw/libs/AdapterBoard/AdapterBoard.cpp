@@ -63,10 +63,13 @@ void AdapterBoard::pollSwitches()
     togglePower();
 
   //When both pressed, backlight up button has priority
-  if(swUp == LOW && prev_swUp1 == LOW && prev_swUp2 == HIGH)
-    backlight.up();
-  if(swDown == LOW && prev_swDown1 == LOW && prev_swDown2 == HIGH)
-    backlight.down();
+  if(backlight.isOn())
+  {
+    if(swUp == LOW && prev_swUp1 == LOW && prev_swUp2 == HIGH)
+      backlight.up();
+    if(swDown == LOW && prev_swDown1 == LOW && prev_swDown2 == HIGH)
+      backlight.down();
+  }
 
   prev_swOn2 = prev_swOn1;
   prev_swUp2 = prev_swUp1;
