@@ -89,6 +89,7 @@ void AdapterBoard::togglePower()
   if(backlight.isOn())
   {
     led.set(STANDBY_COLOUR);
+    backlight.set(backlight.get());
     backlight.off();
   }
   else
@@ -98,6 +99,7 @@ void AdapterBoard::togglePower()
     else
       led.set(ON_COLOUR);
 
+    backlight.setLast();
     backlight.on();
   }
 }
