@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include "usb_commands.h"
 
+bool isUsb = false;
+
 AdapterBoard::AdapterBoard()
 {
 }
@@ -83,7 +85,11 @@ void AdapterBoard::togglePower()
   }
   else
   {
-    led.set(ON_COLOUR);
+    if(isUsb)
+      led.set(ONUSB_COLOUR);
+    else
+      led.set(ON_COLOUR);
+
     backlight.setLast();
     backlight.on();
   }
@@ -96,6 +102,10 @@ void AdapterBoard::handleUSB()
 {
   if(usb.isEnumerated())
   {
+    isUsb = true;
+    if(backlight.isOn())
+      led.set(ONUSB_COLOUR);
+
     if(usb.hasData())
     {
       char resp[EP_LEN];
@@ -107,7 +117,7 @@ void AdapterBoard::handleUSB()
       switch(buf[0])
       {
         case CMD_BL_ON:
-          led.set(ON_COLOUR);
+          led.set(ONUSB_COLOUR);
           backlight.on();
           break;
         case CMD_BL_OFF:
@@ -163,5 +173,11 @@ void AdapterBoard::handleUSB()
         usb.write(resp, EP_LEN);
       }
     }
+  }
+  else
+  {
+    isUsb = false;
+    if(backlight.isOn())
+      led.set(ON_COLOUR);
   }
 }

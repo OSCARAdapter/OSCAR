@@ -18,7 +18,8 @@
 #define SW_DOWN 6
 
 #define STANDBY_COLOUR 1, 0, 0
-#define ON_COLOUR      20, 20, 20
+#define ON_COLOUR      0, 30, 0
+#define ONUSB_COLOUR   20, 20, 20
 
 class AdapterBoard
 {
