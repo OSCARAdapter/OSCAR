@@ -6,6 +6,7 @@
 
 bool isUsb = false;
 unsigned long lastPowerChange = 0;
+unsigned long lastBacklightChange = 0;
 
 AdapterBoard::AdapterBoard()
 {
@@ -54,6 +55,7 @@ void AdapterBoard::pollSwitches()
   //Ignore a few polls
   if(switchDelay++ < 40000)
     return;
+  switchDelay = 0;
 
   int swOn = digitalRead(SW_ON);
   int swUp = digitalRead(SW_UP);
@@ -62,10 +64,14 @@ void AdapterBoard::pollSwitches()
   if(swOn == LOW && prev_swOn1 == LOW && prev_swOn2 == HIGH)
     togglePower();
 
-  if(swUp == LOW && prev_swUp1 == LOW && prev_swUp2 == HIGH)
-    backlight.up();
-  if(swDown == LOW && prev_swDown1 == LOW && prev_swDown2 == HIGH)
-    backlight.down();
+  if((millis()) - lastBacklightChange > 150)
+  {
+    lastBacklightChange = millis();
+    if(swUp == LOW && prev_swUp1 == LOW && prev_swUp2 == HIGH)
+      backlight.up();
+    if(swDown == LOW && prev_swDown1 == LOW && prev_swDown2 == HIGH)
+      backlight.down();
+  }
 
   prev_swOn2 = prev_swOn1;
   prev_swUp2 = prev_swUp1;
