@@ -44,6 +44,9 @@ uint8_t Backlight::get()
 
 void Backlight::up()
 {
+  if(!isOn())
+    return;
+
   int curStep = findNearestStep(get());
   if((curStep+1) < NUM_LEVELS)
     set(levels[curStep+1]);
@@ -51,6 +54,9 @@ void Backlight::up()
 
 void Backlight::down()
 {
+  if(!isOn())
+    return;
+
   int curStep = findNearestStep(get());
   if((curStep-1) >= 0)
     set(levels[curStep-1]);
