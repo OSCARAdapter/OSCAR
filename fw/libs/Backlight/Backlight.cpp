@@ -27,7 +27,8 @@ void Backlight::silentSet(uint8_t level)
 
 void Backlight::set(uint8_t level)
 {
-  analogWrite(pwm_pin, level);
+  if(isOn())
+    analogWrite(pwm_pin, level);
   silentSet(level);
 }
 
