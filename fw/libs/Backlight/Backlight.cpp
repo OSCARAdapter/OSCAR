@@ -19,11 +19,16 @@ void Backlight::init(int pin_pwm, int pin_en, int eeprom_location)
   pinMode(en_pin, OUTPUT);
 }
 
+void Backlight::silentSet(uint8_t level)
+{
+  current = level;
+  EEPROM.write(eeprom, level);
+}
+
 void Backlight::set(uint8_t level)
 {
   analogWrite(pwm_pin, level);
-  current = level;
-  EEPROM.write(eeprom, level);
+  silentSet(level);
 }
 
 void Backlight::setLast()

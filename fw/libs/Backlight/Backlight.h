@@ -7,6 +7,7 @@ class Backlight
 {
   public:
     void init(int pwm_pin, int en_pin, int eeprom = 0);
+    void silentSet(uint8_t level);
     void set(uint8_t level);
     void setLast();
     uint8_t get();
