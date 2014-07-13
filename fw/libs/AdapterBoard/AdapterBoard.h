@@ -5,8 +5,8 @@
 #include <RGBLed.h>
 #include <usb.h>
 
-#define LED_R 13
-#define LED_G 9
+#define LED_R 9
+#define LED_G 13
 #define LED_B 10
 #define BACKLIGHT_PIN 11
 #define SUPPLY_EN 8
