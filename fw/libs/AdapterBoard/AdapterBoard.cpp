@@ -5,6 +5,7 @@
 #include "usb_commands.h"
 
 bool isUsb = false;
+unsigned long lastPowerChange = 0;
 
 AdapterBoard::AdapterBoard()
 {
@@ -78,6 +79,10 @@ void AdapterBoard::pollSwitches()
 
 void AdapterBoard::togglePower()
 {
+  if((millis() - lastPowerChange) < 300)
+    return;
+  lastPowerChange = millis();
+
   if(backlight.isOn())
   {
     led.set(STANDBY_COLOUR);
@@ -93,7 +98,6 @@ void AdapterBoard::togglePower()
     backlight.setLast();
     backlight.on();
   }
-  delay(10);
 }
 
 char buf[EP_LEN];
