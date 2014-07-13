@@ -28,7 +28,13 @@ void Backlight::set(uint8_t level)
 
 void Backlight::setLast()
 {
-  set(EEPROM.read(eeprom));
+  int level = EEPROM.read(eeprom);
+
+  //If off, set backlight to maximum
+  if(level == 0)
+    level = 0xFF;
+
+  set(level);
 }
 
 uint8_t Backlight::get()
