@@ -38,6 +38,8 @@ class AdapterBoard
     Backlight backlight;
     USB usb;
 
+    unsigned long switchDelay;
+
     int prev_swOn;
     int prev_swUp;
     int prev_swDown;

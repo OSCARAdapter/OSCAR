@@ -4,8 +4,6 @@
 #include <Arduino.h>
 #include "usb_commands.h"
 
-unsigned long startMillis = 0;
-
 AdapterBoard::AdapterBoard()
 {
 }
@@ -39,18 +37,17 @@ void AdapterBoard::initSwitches()
   pinMode(SW_UP, INPUT);
   pinMode(SW_DOWN, INPUT);
 
-  prev_swOn = digitalRead(SW_ON);
-  prev_swUp = digitalRead(SW_UP);
-  prev_swDown = digitalRead(SW_DOWN);
-  startMillis = millis();
+  prev_swOn = HIGH;
+  prev_swUp = HIGH;
+  prev_swDown = HIGH;
+  switchDelay = 0;
 }
 
 void AdapterBoard::pollSwitches()
 {
   //Ignore a few polls
-  if((millis() - startMillis) >= 30)
+  if(switchDelay++ < 500000)
     return;
-  startMillis = millis();
 
   int swOn = digitalRead(SW_ON);
   int swUp = digitalRead(SW_UP);
