@@ -40,9 +40,9 @@ class AdapterBoard
 
     unsigned long switchDelay;
 
-    int prev_swOn;
-    int prev_swUp;
-    int prev_swDown;
+    int prev_swOn1, prev_swOn2;
+    int prev_swUp1, prev_swUp2;
+    int prev_swDown1, prev_swDown2;
 };
 
 #endif
