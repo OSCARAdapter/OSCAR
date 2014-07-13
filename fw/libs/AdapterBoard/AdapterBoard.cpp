@@ -6,6 +6,7 @@
 
 bool isUsb = false;
 unsigned long lastPowerChange = 0;
+unsigned long lastBacklightChange = 0;
 
 AdapterBoard::AdapterBoard()
 {
@@ -65,10 +66,15 @@ void AdapterBoard::pollSwitches()
   //When both pressed, backlight up button has priority
   if(backlight.isOn())
   {
-    if(swUp == LOW && prev_swUp1 == LOW && prev_swUp2 == HIGH)
-      backlight.up();
-    if(swDown == LOW && prev_swDown1 == LOW && prev_swDown2 == HIGH)
-      backlight.down();
+    if((millis() - lastBacklightChange) >= 300)
+    {
+      lastBacklightChange = millis();
+
+      if(swUp == LOW && prev_swUp1 == LOW && prev_swUp2 == HIGH)
+        backlight.up();
+      if(swDown == LOW && prev_swDown1 == LOW && prev_swDown2 == HIGH)
+        backlight.down();
+    }
   }
 
   prev_swOn2 = prev_swOn1;
