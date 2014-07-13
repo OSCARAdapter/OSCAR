@@ -17,7 +17,6 @@ void Backlight::init(int pin_pwm, int pin_en, int eeprom_location)
 
   pinMode(pwm_pin, OUTPUT);
   pinMode(en_pin, OUTPUT);
-  off();
 }
 
 void Backlight::set(uint8_t level)
