@@ -40,40 +40,27 @@ void AdapterBoard::initSwitches()
   pinMode(SW_UP, INPUT);
   pinMode(SW_DOWN, INPUT);
 
-  prev_swOn1 = HIGH;
-  prev_swUp1 = HIGH;
-  prev_swDown1 = HIGH;
-  prev_swOn2 = HIGH;
-  prev_swUp2 = HIGH;
-  prev_swDown2 = HIGH;
-  switchDelay = 0;
+  swOn = Bounce();
+  swOn.attach(SW_ON);
+  swOn.interval(SWITCH_DELAY);
+  swUp = Bounce();
+  swUp.attach(SW_UP);
+  swUp.interval(SWITCH_DELAY);
+  swDown = Bounce();
+  swDown.attach(SW_DOWN);
+  swDown.interval(SWITCH_DELAY);
 }
 
 void AdapterBoard::pollSwitches()
 {
-  //Ignore a few polls
-  if(switchDelay++ < 40000)
-    return;
-
-  int swOn = digitalRead(SW_ON);
-  int swUp = digitalRead(SW_UP);
-  int swDown = digitalRead(SW_DOWN);
-
-  if(swOn == LOW && prev_swOn1 == LOW && prev_swOn2 == HIGH)
+  if(swOn.update() && swOn.read() == LOW)
     togglePower();
 
-  if(swUp == LOW && prev_swUp1 == LOW && prev_swUp2 == HIGH)
+  //When both pressed, backlight up button has priority
+  if(swUp.update() && swUp.read() == LOW)
     backlight.up();
-  if(swDown == LOW && prev_swDown1 == LOW && prev_swDown2 == HIGH)
+  if(swDown.update() && swDown.read() == LOW)
     backlight.down();
-
-  prev_swOn2 = prev_swOn1;
-  prev_swUp2 = prev_swUp1;
-  prev_swDown2 = prev_swDown1;
-
-  prev_swOn1 = swOn;
-  prev_swUp1 = swUp;
-  prev_swDown1 = swDown;
 }
 
 void AdapterBoard::togglePower()
