@@ -43,6 +43,14 @@ void Backlight::setLast()
   set(level);
 }
 
+void Backlight::setLastPowerState()
+{
+  int state = EEPROM.read(eeprom+1);
+  if(state)
+    on();
+  off();
+}
+
 uint8_t Backlight::get()
 {
   return current;
@@ -88,6 +96,7 @@ void Backlight::on()
   int bl = get();
   analogWrite(pwm_pin, 0);
   digitalWrite(en_pin, 1);
+  EEPROM.write(eeprom+1, 1);
   delay(300);
   analogWrite(pwm_pin, bl);
 }
@@ -96,6 +105,7 @@ void Backlight::off()
 {
   onState = false;
   analogWrite(pwm_pin, 0);
+  EEPROM.write(eeprom+1, 0);
   delay(60);
   digitalWrite(en_pin, 0);
 }

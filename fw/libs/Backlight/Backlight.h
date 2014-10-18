@@ -3,6 +3,10 @@
 #ifndef BACKLIGHT_H
 #define BACKLIGHT_H
 
+/* Uses EEPROM locations as follows:
+ * [eeprom] stores the last value of the backlight pwm
+ * [eeprom+1] stores the last power state */
+
 class Backlight
 {
   public:
@@ -10,6 +14,7 @@ class Backlight
     void silentSet(uint8_t level);
     void set(uint8_t level);
     void setLast();
+    void setLastPowerState();
     uint8_t get();
 
     void up();

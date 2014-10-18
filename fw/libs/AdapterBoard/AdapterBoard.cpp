@@ -19,7 +19,8 @@ void AdapterBoard::init()
 
   //Setup backlight, restore previous brightness, but don't enable
   backlight.init(BACKLIGHT_PIN, SUPPLY_EN);
-  backlight.off();
+  backlight.setLast();
+  backlight.setLastPowerState();
 
   //Initialize the switches on board
   initSwitches();
