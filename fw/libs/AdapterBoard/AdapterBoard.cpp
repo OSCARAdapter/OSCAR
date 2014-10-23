@@ -17,13 +17,16 @@ void AdapterBoard::init()
   led.init(LED_R, LED_G, LED_B);
   led.set(STANDBY_COLOUR);
 
-  //Setup backlight, restore previous brightness, but don't enable
+  //Initialize the switches on board
+  initSwitches();
+  delay(100);
+
+  //Setup backlight, restore previous brightness, only enable if we were powered
   backlight.init(BACKLIGHT_PIN, SUPPLY_EN);
   backlight.setLast();
   backlight.setLastPowerState();
-
-  //Initialize the switches on board
-  initSwitches();
+  if(backlight.isOn())
+    led.set(ON_COLOUR);
 }
 
 void AdapterBoard::poll()

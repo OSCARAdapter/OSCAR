@@ -48,7 +48,8 @@ void Backlight::setLastPowerState()
   int state = EEPROM.read(eeprom+1);
   if(state)
     on();
-  off();
+  else
+    off();
 }
 
 uint8_t Backlight::get()
