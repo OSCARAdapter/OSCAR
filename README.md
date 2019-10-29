@@ -20,7 +20,7 @@ You may need to adjust MONITOR_PORT in fw/Makefile.
 * `make upload`
 
 *Build the software [in sw/] (_Windows_)*
-
+-----------------------------------------
 This requires you to have Visual Studio C++ installed, the QT5 development environment to be set up, and to have the libusb source.
 1. `qmake -tp vc oscar.pro`
 2. Open the generated vcproj in Visual Studio
@@ -28,7 +28,7 @@ This requires you to have Visual Studio C++ installed, the QT5 development envir
 4. Build
 
 *Build the software [in sw/] (_Linux/OSX_)*
-
+-------------------------------------------
 This requires a C++ compiler, QT5 development libraries, libusb development package.
 1. `qmake oscar.pro`
 2. `make`
@@ -38,9 +38,9 @@ On Windows, you will be required to install the drivers for the device, these ca
 
 Getting Started (from Binary - Windows only)
 --------------------------------------------
-1. Download the installer from here
-2. Run the installer
-3. Plug OSCAR in
+1. Download the installer from here.
+2. Run the installer.
+3. Plug OSCAR in.
 
 Repository Overview
 -------------------
